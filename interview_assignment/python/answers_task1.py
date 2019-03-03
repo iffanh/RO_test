@@ -30,7 +30,7 @@ TASK 1
 '''
 def get_water_breakthrough_time(mode):
 
-    #mode = 1 print all the details, this is not needed when only calling the data
+    #mode -- '1' print all the details, this is not needed when only calling the data.
 
     print 'calling function get_water_breakthrough_time ...'
     if mode == 1:
@@ -153,6 +153,8 @@ def get_histogram():
 '''
 
 def nlargest_variability(n):
+    
+    #n -- the number of largest variability, e.g. '5'
 
     print 'calling function nlargest_variability ...'
     print 'Task 1 c) starts now:'

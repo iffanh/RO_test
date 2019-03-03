@@ -50,6 +50,9 @@ def get_summary_ensemble_dictionary(jsonFileName):
 '''
 
 def calculate_standard_deviation(task, mode1, mode2):
+    #task -- either 'a' or 'b', as given in the problem statement
+    #mode1 -- the variable we are interested in, e.g. 'OPR', 'WPR', WCT', that have historical data
+    #mode2 -- either 'P' or 'I', production or injection well. However for now only 'P' works since it has historical data
 
     print 'calling function calculate_standard_deviation ...'
 
@@ -149,6 +152,9 @@ def calculate_standard_deviation(task, mode1, mode2):
 
 def create_bar_chart(mode, nbar):
 
+    #mode -- the variable we are interested in, e.g. 'OPR', 'WPR', WCT', that have historical data
+    #nbar -- the number of largest interval score desired
+
     print 'calling create_bar_chart ...'
     print "Task 2 c) starts here:"
 
@@ -187,9 +193,6 @@ def create_bar_chart(mode, nbar):
     print 'function create_bar_chart called and returned'
 
     return 0
-
-
-
 
 
 

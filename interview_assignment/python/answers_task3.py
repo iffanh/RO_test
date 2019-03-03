@@ -32,7 +32,10 @@ TASK 3:
 '''
 
 def get_coverage(task, wellList, mode):
-    
+    #task -- either 'a', 'b', or 'c', as given in the problem statement
+    #wellList -- list of wells of interest
+    #mode -- the variable we are interested in, e.g. 'OPR', 'WPR', WCT', that have historical data
+
     print 'calling function get_coverage ...'
 
     if task == 'a':

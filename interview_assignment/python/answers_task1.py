@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,6 +11,7 @@ from numbers import Number
 from collections import Counter
 
 from heapq import nlargest #to find top n largest number
+from matplotlib import pyplot as mp #to save figure
 
 
 timeSeriesFileName = '../data/brugge_time_series.npy'
@@ -105,57 +106,50 @@ def get_water_breakthrough_time(mode):
     return WCDict
 
 '''
-
-
    b)  Write a function that for each well, create and store a histogram of the water breakthrough times calculated in assignment a)
-
 '''
 
 def get_histogram():
     print 'Task 1 b) starts now:'
     #First define how many bins
-    nBins = 3.0
+    nBins = 5
+
+    #Printing the number of wells:
+    nWells = 20
+    
+    #Get the well name and store to variable 'name'
+    name = []
+    for i in range(0,nWells):
+        newName = 'BR-P-' + str(i + 1).zfill(2)
+        name.append(newName)
 
     #Get the data from Task 1 a)
     wcTime = get_water_breakthrough_time(0)
 
-    for BTtime in wcTime.values():
+    for BTtimeKey, BTtimeValues in wcTime.iteritems():
         #Deleting the 'None' part of the array, and the new array is stored in 'temp'
-        temp = list(filter(lambda x: isinstance(x, Number), BTtime))
-        print temp
+        temp = list(filter(lambda x: isinstance(x, Number), BTtimeValues))
 
         if len(temp) < 1: #if array is empty
-            print 'this well has 0 or 1 case with water breakthrough'
-        else:
-            #delta = (max(temp) - min(temp)) / nBins
+            print 'well',  BTtimeKey, 'has 0 or 1 case with water breakthrough'
         
-            #for i in range(nBins):
-            #    bin[i]
+        print 'histogram for well', BTtimeKey, 'is saved as .png file'
+        plt.figure('well_' + BTtimeKey)
+        n, bins, patches = plt.hist(temp, nBins, facecolor='blue', alpha=0.5, rwidth=0.8)
+        plt.xlabel('Days')
+        plt.ylabel('Frequency')
+        plt.title('Breakthrough Histogram of well '+ BTtimeKey)
+        mp.savefig('well_' + BTtimeKey)
+        #plt.show()  
 
-            n, bins, patches = plt.hist(x=temp, bins='auto', color='#0504aa',
-                            alpha=0.7, rwidth=0.85)
-            plt.grid(axis='y', alpha=0.75)
-            plt.xlabel('Value')
-            plt.ylabel('Frequency')
-            plt.title('My Very Own Histogram')
-            maxfreq = n.max()
-
-        # Set a clean upper y-axis limit.
-            plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
-            plt.show()
-
-    #print len(well)
 
     return 0
 
 
 
 '''
-
-
    c)  Write a function that list the five wells that have highest variability in the water breakthough time 
           (reporting the standard deviation and range for the water breakthrough time) 
-
 '''
 
 def nlargest_variability(n):
@@ -202,7 +196,10 @@ def nlargest_variability(n):
     return 0
 
 #print answer for Task 1 a)
-print get_water_breakthrough_time(1)
+#print get_water_breakthrough_time(1)
+
+#get answer for Task 1 b)
+get_histogram()
 
 #print answer for Task 1 c)
 #nlargest_variability(5)

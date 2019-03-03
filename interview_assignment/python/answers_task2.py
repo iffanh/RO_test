@@ -1,10 +1,12 @@
 import matplotlib
-matplotlib.use('Agg')
 
 import numpy as np
 import matplotlib.pyplot as plt
 import json
 import matplotlib.dates as mdates
+import operator
+
+from matplotlib import pyplot as mp #to save figure
 
 
 summaryKeys = ['OPT','OPR','WPT','WPR','GPT','GPR','WIT','WIR','BHP','WCT','GOR','LPR','LPT']
@@ -48,6 +50,9 @@ def get_summary_ensemble_dictionary(jsonFileName):
 '''
 
 def calculate_standard_deviation(task, mode1, mode2):
+
+    print 'calling function calculate_standard_deviation ...'
+
     if task == 'b':
         print "Task 2 b) starts here:"
     elif task == 'a':
@@ -131,13 +136,65 @@ def calculate_standard_deviation(task, mode1, mode2):
             sum = sum + ( (u_t - l_t) +  2.0 / 0.025 * (l_t - dummyObsVec) * x + 2.0 / 0.025 * (dummyObsVec - u_t) * y )
             
         myDict[name[well]] = sum
+
+        
+    print 'function calculate_standard_deviation called and returned'
     
     return myDict
+
+
+'''
+   c) Write a function that creates a bar chart of the 10 biggest interval scores obtained in Task 2 b) and store it as a .png file (ranked by the largest to smallest value)
+'''
+
+def create_bar_chart(mode, nbar):
+
+    print 'calling create_bar_chart ...'
+    print "Task 2 c) starts here:"
+
+    #storing the interval score data from previous task in variable 'myDict'
+    myDict = calculate_standard_deviation('a', mode, 'P')
+
+    #Calculating the average interval score
+    newDict = {}
+    for myDictKey,myDictValue in myDict.iteritems():
+        
+        ave = np.average(myDictValue)
+        print 'Average interval score by case for well ', myDictKey, 'is', ave
+
+        newDict[myDictKey] = ave
+    
+    #sorting the dictionary in decreasing fashion
+    sortedDict = sorted(newDict.items(), key=operator.itemgetter(1), reverse=True)
+
+    #Getting the x- and y- axis
+    x = []
+    y = []
+    for i in range(nbar):
+        x.append(sortedDict[i][0])
+        y.append(sortedDict[i][1])
+
+    y_pos = np.arange(len(x))
+    plt.figure(str(nbar) + ' largest interval score for mode ' + mode, figsize=(10,5))
+    plt.bar(y_pos, y, align='center', alpha=0.5)
+    plt.xticks(y_pos, x)
+    plt.ylabel('Interval score')
+    plt.title( str(nbar) + ' largest interval score for mode ' + mode)
+    mp.savefig(str(nbar) + '_largest_interval_score_for_mode_' + mode)
+    print 'bar chart for mode', mode, 'is saved as .png file'
+    plt.show()
+
+    print 'function create_bar_chart called and returned'
+
+    return 0
+
+
+
+
+
 
 #print answer for Task 2 a) or b)
 #print calculate_standard_deviation('a', 'WPR', 'P')
 
-#print summaryDict
-'''
-   c) Write a function that creates a bar chart of the 10 biggest interval scores obtained in Task 2 b) and store it as a .png file (ranked by the largest to smallest value)
-'''
+#print answer for Task 2 c)
+create_bar_chart('OPR', 10)

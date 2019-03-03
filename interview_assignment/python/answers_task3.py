@@ -21,10 +21,20 @@ TASK 3:
    b) Write a function that loops through all wells and checks the quality of the ensemble forecast. For all wells that have coverage less than 95 %, 
        determine the level of severity in the mismatch (through the intervalScore)
 '''
+'''  
+   c) For wells what have less than 95 % coverage write a function the returns a list of recommendations that the user should potentially consider to improve the 
+       quality of the ensemble. One example could be:
 
+        - "Ensemble is failing to match the water cut of well BR-P10 (breakthough is too late and slope is not correct): suggested fixes: 
+            1. "Consider revising horizontal permeability around well BR-P-10"
+            2. "..." 
+ 
+'''
 
 def get_coverage(task, wellList, mode):
     
+    print 'calling function get_coverage ...'
+
     if task == 'a':
         print "Task 3 a) starts here:"
     elif task == 'b':
@@ -103,22 +113,21 @@ def get_coverage(task, wellList, mode):
                         print 'the simulated water production rate fails to match the history, '
                         print '\t - Check other wells, if most of the BHP match fails, consider checking the pressure support in the reservoir'
                         print '\t - Check BHP, if not captured, consider revising the horizontal permeability around well', name[well]
-                        
+                    
+                    if mode == ['WCT']:
+                        print 'the simulated water cut fails to match the history, '
+                        print '\t - Check WCT time from get_water_breakthrough() function, if not correct, consider change the grid size'
+                        print '\t - Consider revising the horizontal permeability around well', name[well]
+                        print '\t - If simulation is done for water control, change the oil permeability curve, and vice versa'
         print '----------------------------------------------------------------------'
+    print 'function get_coverage called and returned'
+    
     return 0
-'''  
-   c) For wells what have less than 95 % coverage write a function the returns a list of recommendations that the user should potentially consider to improve the 
-       quality of the ensemble. One example could be:
 
-        - "Ensemble is failing to match the water cut of well BR-P10 (breakthough is too late and slope is not correct): suggested fixes: 
-            1. "Consider revising horizontal permeability around well BR-P-10"
-            2. "..." 
- 
-'''
 
-#This is task 3 a) and b), specify in the first input
+#This is for task 3 a) b), and c), specify in the first input
 #Specify input here
-listOfWells = ['P-1', 'P-2', 'P-10', 'I-1', 'I-2', 'I-10']
-var = ['BHP']
+listOfWells = ['P-1', 'P-2', 'P-10', 'P-20' ] #Production wells only
+var = ['WCT'] #Choose from 'BHP', 'OPR', 'WPR', or 'WCT'
 
 get_coverage('c', listOfWells, var)

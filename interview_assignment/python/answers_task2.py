@@ -197,7 +197,7 @@ def create_bar_chart(mode, nbar):
 
 
 #print answer for Task 2 a) or b)
-#print calculate_standard_deviation('a', 'WPR', 'P')
+print calculate_standard_deviation('a', 'WPR', 'P')
 
 #print answer for Task 2 c)
-create_bar_chart('OPR', 10)
+#create_bar_chart('OPR', 10)

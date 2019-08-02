@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import json
 import matplotlib.dates as mdates
 
-from answers_task2 import calculate_standard_deviation
+#from answers_task2 import calculate_standard_deviation
 
 #from answers_task2 import  
 timeSeriesFileName = '../data/brugge_time_series.npy'
@@ -131,6 +131,6 @@ def get_coverage(task, wellList, mode):
 #This is for task 3 a) b), and c), specify in the first input
 #Specify input here
 listOfWells = ['P-1', 'P-2', 'P-10', 'P-20' ] #Production wells only
-var = ['WCT'] #Choose from 'BHP', 'OPR', 'WPR', or 'WCT'
+var = ['BHP'] #Choose from 'BHP', 'OPR', 'WPR', or 'WCT'
 
 get_coverage('c', listOfWells, var)

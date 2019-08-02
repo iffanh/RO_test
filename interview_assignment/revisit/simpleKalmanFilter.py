@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import random
 
+#Test
 #Define true value
 trueValue = 1000
 
@@ -41,6 +42,8 @@ for i in range(nSample):
 	plt.pause(0.01)
 	if i == nSample - 1:
 		plt.savefig('simpleKalmanFilter02.png')
-	plt.clf() 
+	plt.clf()
+
+
 
 
